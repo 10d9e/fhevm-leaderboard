@@ -34,7 +34,7 @@ contract Leaderboard {
     }
 
     // function to get the player's score in relation to the highest score
-    function getScoreRelativeToHighestScore2() public view returns (uint) {
+    function getScoreRelativeToHighestScore() public view returns (uint) {
         euint32 score = players[msg.sender].score;
         euint32 highest = highestScore;
         euint32 a = score * TFHE.asEuint32(100);

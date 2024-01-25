@@ -51,7 +51,7 @@ describe("Leaderboard", function () {
     transaction = await this.leaderboard.addPlayer(this.signers.eve.address, score);
     await transaction.wait();
 
-    let relativeScore = await this.leaderboard.getScoreRelativeToHighestScore2();
+    let relativeScore = await this.leaderboard.getScoreRelativeToHighestScore();
     console.log(relativeScore);
     
   });
