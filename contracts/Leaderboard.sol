@@ -33,21 +33,13 @@ contract Leaderboard {
         return players[_user].score;
     }
 
-    // funcion to get the player's score in relation to the highest score
-    function getScoreRelativeToHighestScore() public view returns (uint) {
+    // function to get the player's score in relation to the highest score
+    function getScoreRelativeToHighestScore2() public view returns (uint) {
         euint32 score = players[msg.sender].score;
-
-        // cannot use div with euint32 divisor
-        uint32 times = 0;
         euint32 highest = highestScore;
-        bool timesBool = TFHE.decrypt(TFHE.gt(highest, 0));
-        while (timesBool) {
-            highest = TFHE.sub(highest, score);
-            times++;
-            timesBool = TFHE.decrypt(TFHE.gt(highest, 0));
-        }
-
-        return times * 10;
+        euint32 a = score * TFHE.asEuint32(100);
+        euint32 b = highest * TFHE.asEuint32(100);
+        euint32 times = TFHE.div(a, TFHE.decrypt(b));
+        return TFHE.decrypt(times);
     }
-
 }
